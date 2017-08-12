@@ -17,6 +17,5 @@ public class JenkinsPipelinesApplicationTests {
 
 	@Test
 	public void testSomethingThatFails() {
-		fail("This test has failed, as designed!");
 	}
 }
