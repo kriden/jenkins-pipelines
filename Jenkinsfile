@@ -3,9 +3,11 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        tool(name: 'JDK1.8', type: 'jdk')
-        tool(name: 'Maven3.2.1', type: 'maven')
-        sh 'mvn clean install'
+        withMaven(maven: 'Maven3.2.1', jdk: 'JDK1.8') {
+          sh 'mvn clean install'
+        }
+        
+        junit '**/surefire-reports/TEST*.xml'
       }
     }
   }
