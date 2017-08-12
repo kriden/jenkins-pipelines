@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static junit.framework.TestCase.fail;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JenkinsPipelinesApplicationTests {
@@ -13,4 +15,8 @@ public class JenkinsPipelinesApplicationTests {
 	public void contextLoads() {
 	}
 
+	@Test
+	public void testSomethingThatFails() {
+		fail("This test has failed, as designed!");
+	}
 }
