@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        withMaven(maven: 'Maven3.2.1', jdk: 'JDK8.1') {
+        withMaven(maven: 'Maven3.2.1', jdk: 'JDK1.8') {
           sh 'mvn clean install'
         }
         
