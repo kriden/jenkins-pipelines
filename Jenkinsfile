@@ -18,9 +18,8 @@ pipeline {
           "CodeQuality": {
               sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
               // requires SonarQube Scanner 2.8+
-              def scannerHome = tool 'SonarQubeScanner';
               withSonarQubeEnv('SonarQubeServer') {
-                sh "${scannerHome}/bin/sonar-scanner"
+                sh 'mvn sonar:sonar'
               }
             
           },
