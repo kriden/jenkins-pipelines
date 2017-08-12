@@ -21,7 +21,7 @@ pipeline {
             
           },
           "DependencyCheck": {
-            withMaven(jdk: 'JDK1.5', maven: 'Maven3.2.1') {
+            withMaven(jdk: 'JDK1.8', maven: 'Maven3.2.1') {
               sh 'mvn org.owasp:dependency-check-maven:2.1.0:check'
             }
             
