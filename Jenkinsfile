@@ -9,7 +9,7 @@ pipeline {
         
       }
     }
-    stage('') {
+    stage('CodeQuality') {
       steps {
         withMaven(jdk: 'JDK1.8', maven: 'Maven3.2.1') {
           sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
