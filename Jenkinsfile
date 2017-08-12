@@ -7,7 +7,6 @@ pipeline {
           sh 'mvn clean install'
         }
         
-        junit '**/surefire-reports/TEST*.xml'
       }
     }
   }
