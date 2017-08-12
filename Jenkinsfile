@@ -4,6 +4,7 @@ pipeline {
   tools {
     maven 'Maven3.2.1'
     jdk 'JDK1.8'
+    sonarqube 'SonarQube'
   }
 
   stages {
@@ -17,7 +18,9 @@ pipeline {
         parallel(
           "CodeQuality": {
               sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
-              sh 'mvn sonar:sonar -Dsonar.host.url=http://192.168.99.100:9000'
+              withSonarQubeEnv('SonarQube') {
+                sh 'mvn sonar:sonar -Dsonar.host.url=http://192.168.99.100:9000'
+              }
             
           },
           "DependencyCheck": {
