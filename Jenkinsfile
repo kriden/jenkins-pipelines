@@ -17,8 +17,10 @@ pipeline {
         parallel(
           "CodeQuality": {
               sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
-              withSonarQubeEnv('SonarQube') {
-                sh 'mvn sonar:sonar -Dsonar.host.url=http://192.168.99.100:9000'
+              // requires SonarQube Scanner 2.8+
+              def scannerHome = tool 'SonarQubeScanner';
+              withSonarQubeEnv('SonarQubeServer') {
+                sh "${scannerHome}/bin/sonar-scanner"
               }
             
           },
