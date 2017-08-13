@@ -17,7 +17,9 @@ pipeline {
         parallel(
           "CodeQuality": {
               sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
-              waitForQualityGate()
+              withSonarQubeEnv('SonarQubeServer') {
+                waitForQualityGate()
+              }
           },
           "DependencyCheck": {
               sh 'mvn org.owasp:dependency-check-maven:2.1.0:check'
