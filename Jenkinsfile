@@ -17,18 +17,7 @@ pipeline {
         parallel(
           "CodeQuality": {
               sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
-              withSonarQubeEnv('SonarQubeServer') {
-                sh 'mvn sonar:sonar'
-              }
-
-              withSonarQubeEnv('SonarQubeServer') {
-               timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-                  qg = waitForQualityGate()
-                  if (qg.status != 'OK') {
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                  }
-                }
-              }
+              waitForQualityGate()
           },
           "DependencyCheck": {
               sh 'mvn org.owasp:dependency-check-maven:2.1.0:check'
