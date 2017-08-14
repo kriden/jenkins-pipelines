@@ -18,7 +18,7 @@ pipeline {
       steps {
         parallel(
           "Sonar": {
-              sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
+              sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent -Dmaven.test.failure.ignore=false'
               withSonarQubeEnv('SonarQubeServer') {
                 sh 'mvn sonar:sonar'
               }
@@ -35,7 +35,7 @@ pipeline {
               }
           },
           "Security": {
-              sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
+              sh 'mvn org.owasp:dependency-check-maven:2.1.0:check'
           }
         )
       }
