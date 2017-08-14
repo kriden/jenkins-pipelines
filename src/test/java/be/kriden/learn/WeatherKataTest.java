@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 public class WeatherKataTest {
     @Test
     public void weatherKata() throws FileNotFoundException {
-        WeatherFile data = new WeatherFile(new File(getClass().getResource("/weather.dat").getPath()));
+        WeatherFile data = new WeatherFile(getClass().getResourceAsStream("/weather.dat"));
         data.readings().sort(new MinTempDifferenceComparator());
         Reading min  = data.readings().get(0);
 

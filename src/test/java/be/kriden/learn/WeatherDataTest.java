@@ -10,9 +10,9 @@ import static org.junit.Assert.assertFalse;
 
 public class WeatherDataTest {
 
-    @Test(expected = FileNotFoundException.class)
+    @Test(expected = NullPointerException.class)
     public void nonExistingFileThrowsException() throws FileNotFoundException {
-        new WeatherFile(new File("invalid-path.dat"));
+        new WeatherFile(null);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class WeatherDataTest {
     }
 
     private WeatherFile createWithSourceFile(String filename) throws FileNotFoundException {
-        return new WeatherFile(new File(getClass().getResource(filename).getPath()));
+        return new WeatherFile(getClass().getResourceAsStream(filename));
     }
 
 }
