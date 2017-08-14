@@ -43,12 +43,8 @@ pipeline {
 
     stage('Deploy') {
         steps {
-            "Docker build": {
-               print "Build docker image"
-            },
-            "Docker deploy": {
-               print "Deploy docker image"
-            }
+           print "Build docker image"
+           print "Deploy docker image"
         }
     }
 
