@@ -13,7 +13,11 @@ public class JenkinsPipelinesApplication {
 		int number = 3;
 		int target = 5;
 
-		target =- number;
-		target =+ number;
+		while(true) {
+			// Fail SonarQube
+
+			target =- number;
+			target =+ number;
+		}
 	}
 }
