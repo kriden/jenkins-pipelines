@@ -14,7 +14,7 @@ pipeline {
                 sh 'mvn sonar:sonar'
             }
 
-            withSonarQubeEnv('SonarQubeScanner') {
+            withSonarQubeEnv('SonarQubeServer') {
                 waitForQualityGate()
             }
         }
