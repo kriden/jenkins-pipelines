@@ -43,7 +43,7 @@ pipeline {
 
     stage('Deploy') {
         steps {
-           print "Build docker image"
+           sh 'mvn docker:build'
            print "Deploy docker image"
         }
     }
