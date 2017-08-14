@@ -12,6 +12,9 @@ pipeline {
             sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
             withSonarQubeEnv('SonarQubeServer') {
                 sh 'mvn sonar:sonar'
+            }
+
+            withSonarQubeEnv('SonarQubeScanner') {
                 waitForQualityGate()
             }
         }
@@ -29,7 +32,7 @@ pipeline {
               sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
               withSonarQubeEnv('SonarQubeScanner') {
                 sh 'mvn sonar:sonar'
-                waitForQualityGate()
+
               }
           },
           "DependencyCheck": {
