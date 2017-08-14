@@ -7,26 +7,6 @@ pipeline {
   }
 
   stages {
-    stage('Debug') {
-        steps {
-            sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
-            withSonarQubeEnv('SonarQubeServer') {
-                sh 'mvn sonar:sonar'
-            }
-
-            withSonarQubeEnv('SonarQubeServer') {
-                timeout(time: 1, unit: 'HOURS') {
-                  script {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                      error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }
-                  }
-                }
-            }
-        }
-    }
-
     stage('Build') {
       steps {
           sh 'mvn clean install'
@@ -43,7 +23,21 @@ pipeline {
               }
           },
           "DependencyCheck": {
-              sh 'mvn org.owasp:dependency-check-maven:2.1.0:check'
+              sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
+              withSonarQubeEnv('SonarQubeServer') {
+                  sh 'mvn sonar:sonar'
+              }
+
+              withSonarQubeEnv('SonarQubeServer') {
+                  timeout(time: 1, unit: 'HOURS') {
+                    script {
+                      def qg = waitForQualityGate()
+                      if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                      }
+                    }
+                  }
+              }
           }
         )
       }
