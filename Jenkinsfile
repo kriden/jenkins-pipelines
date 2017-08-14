@@ -10,7 +10,7 @@ pipeline {
     stage('Debug') {
         steps {
             sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false'
-            withSonarQubeEnv('SonarQube') {
+            withSonarQubeEnv('SonarQubeServer') {
                 sh 'mvn sonar:sonar'
                 waitForQualityGate()
             }
