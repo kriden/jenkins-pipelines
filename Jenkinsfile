@@ -10,7 +10,9 @@ pipeline {
 
     stage('Deploy') {
       steps {
-         def app = docker.build "your-project-name"
+         script {
+            def app = docker.build "jenkins-pipeline"
+         }
          print "Deploy docker image"
       }
     }
