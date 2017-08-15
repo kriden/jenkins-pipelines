@@ -10,7 +10,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-         script {
+         docker.withRegistry('https://hub.docker.com/', 'dockerhub-credentials') {
             def app = docker.build "jenkins-pipeline"
          }
          print "Deploy docker image"
